@@ -1,1 +1,8 @@
-/hwDjango/venv/
+venv/
+.idea/
+*.log
+*.pot
+*.pyc
+pycache/
+local_settings.py
+
