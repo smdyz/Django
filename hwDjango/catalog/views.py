@@ -25,3 +25,7 @@ def admin1(request):
 
 def contact(request):
     return render(request, 'catalog/contact.html')
+
+
+def product(request):
+    return render(request, 'catalog/product.html')

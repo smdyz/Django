@@ -3,7 +3,7 @@
 {% block content %}
 <header>
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 fw-normal text-body-emphasis">Главная</h1>
+        <h1 class="display-4 fw-normal text-body-emphasis">Выбранный товар</h1>
         <p class="fs-5 text-body-secondary">Вы находитесь на сайте, предназначенном для продажи товаров</p>
     </div>
 </header>
@@ -23,7 +23,7 @@
                         Email support,
                         Help center access
                     </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
+                    <button type="button" class="btn btn-success">Купить</button>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                         Email support,
                         Help center access
                     </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
+                    <button type="button" class="btn btn-success">Купить</button>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                         Email support,
                         Help center access
                     </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
+                    <button type="button" class="btn btn-success">Купить</button>
                 </div>
             </div>
         </div>
@@ -98,55 +98,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Товар</th>
-                    <th scope="col">Цена ($/шт)</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Итого</th>
-                    <th scope="col">Статус заказа</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>g402</td>
-                    <td>75</td>
-                    <td>1</td>
-                    <td>75</td>
-                    <td class="table-primary">Новый</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Vision Pro</td>
-                    <td>3500</td>
-                    <td>1</td>
-                    <td>3500</td>
-                    <td class="table-warning">Обработка</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>RTX3060</td>
-                    <td>300</td>
-                    <td>3</td>
-                    <td>900</td>
-                    <td class="table-success">Обработан</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Аллигатор</td>
-                    <td>100500</td>
-                    <td>1</td>
-                    <td>100500</td>
-                    <td class="table-danger">Отмена</td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </main>
