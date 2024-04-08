@@ -14,5 +14,5 @@ urlpatterns = [
     path('store/', index, name='store'),
     path('admin1/', admin1, name='admin1'),
     path('contact/', contact, name='contact'),
-    path('product/', product, name='product'),
+    path('product/<int:pk>', product, name='product'),
 ]
