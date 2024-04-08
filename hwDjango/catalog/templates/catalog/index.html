@@ -10,57 +10,23 @@
 
 <main class="row">
     <div class="row text-center">
-        <div class="col-4">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Алигатор</h4>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title pricing-card-title">$100500</h2>
-                    <p>
-                        10 users included,
-                        2 GB of storage,
-                        Email support,
-                        Help center access
-                    </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Самовар</h4>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title pricing-card-title">$250</h2>
-                    <p>
-                        10 users included,
-                        2 GB of storage,
-                        Email support,
-                        Help center access
-                    </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
+        {% for product in object_list%}
+            <div class="col-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal"><b>{{ product.name }}</b></h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title">{{ product.cost }} руб.</h2>
+                        <p>
+                            {{ product }}
+                        </p>
+
+                        <a class="btn btn-primary btn-success" href={% url 'catalog:product' product.pk %}>Купить</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Жвачка по рублю</h4>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title pricing-card-title">$1</h2>
-                    <p>
-                        10 users included,
-                        2 GB of storage,
-                        Email support,
-                        Help center access
-                    </p>
-                    <a class="btn btn-primary btn-success" href={% url 'catalog:product' %}>Купить</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
         <div>
             <p class="d-inline-flex gap-1">
@@ -113,38 +79,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>g402</td>
-                    <td>75</td>
-                    <td>1</td>
-                    <td>75</td>
-                    <td class="table-primary">Новый</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Vision Pro</td>
-                    <td>3500</td>
-                    <td>1</td>
-                    <td>3500</td>
-                    <td class="table-warning">Обработка</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>RTX3060</td>
-                    <td>300</td>
-                    <td>3</td>
-                    <td>900</td>
-                    <td class="table-success">Обработан</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Аллигатор</td>
-                    <td>100500</td>
-                    <td>1</td>
-                    <td>100500</td>
-                    <td class="table-danger">Отмена</td>
-                </tr>
+                {% for product in object_list %}
+                    <tr>
+                        <th scope="row">{{ product.pk }}</th>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.cost }}</td>
+                        <td>1</td>
+                        <td>{{ product.cost }}</td>
+                        <td class="table-primary">Новый</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
