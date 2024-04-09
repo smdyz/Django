@@ -28,7 +28,7 @@ class Product(models.Model):
     updated_at = models.CharField(verbose_name='дата последнего изменения')
 
     def __str__(self):
-        return f'{self.name} {self.description} {self.category} {self.cost}'
+        return f'{self.name} {self.preview} {self.description} {self.category} {self.cost}'
 
     class Meta:
         verbose_name = 'продукт'

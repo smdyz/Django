@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-
+{% load to_media %}
 {% block content %}
 <header>
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -19,7 +19,10 @@
                     <p>
                         {{ object }}
                     </p>
-                    <img class="card-img-top" src="{{ my_media object.preview }}">
+                    {% if object.preview %}
+                        <img class="card-img-top" src="{{ object.preview| my_media }}">
+                    {% endif %}
+                    <span></span>
                     <a class="btn btn-primary btn-success">Купить</a>
                 </div>
             </div>
