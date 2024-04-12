@@ -1,5 +1,3 @@
-from typing import List, Any
-
 from django.core.management import BaseCommand
 import json
 import os
@@ -8,35 +6,6 @@ from catalog.models import Category, Product
 
 
 class Command(BaseCommand):
-
-    #     Category.objects.bulk_create([
-    #   {
-    #     "model": "catalog.product",
-    #     "pk": 11,
-    #     "fields": {
-    #       "name": "gorenje",
-    #       "description": '',
-    #       "preview": '',
-    #       "category": 2,
-    #       "cost": "359",
-    #       "created_at": "2024-04-03",
-    #       "updated_at": "2024-04-03"
-    #     }
-    #   },
-    #   {
-    #     "model": "catalog.product",
-    #     "pk": 12,
-    #     "fields": {
-    #       "name": "hyper pc",
-    #       "description": "nu takoe",
-    #       "preview": '',
-    #       "category": 1,
-    #       "cost": "120000",
-    #       "created_at": "2024-04-04",
-    #       "updated_at": "2024-04-04"
-    #     }
-    #   }
-    # ])
 
     @staticmethod
     def json_read_categories(path):
