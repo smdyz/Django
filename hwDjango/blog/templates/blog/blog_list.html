@@ -1,32 +1,38 @@
 {% extends 'catalog/base.html' %}
 {% load to_media %}
+
 {% block content %}
 <header>
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 fw-normal text-body-emphasis">Выбранный товар</h1>
+        <h1 class="display-4 fw-normal text-body-emphasis">Блоги</h1>
+        <p class="fs-5 text-body-secondary">Здесь находятся блоги пользователей</p>
+        <a class="btn btn-outline-success" href="{% url 'blog:create' %}">Создать свой блог</a>
     </div>
 </header>
 
 <main class="row">
     <div class="row text-center">
-        <div>
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h3 class="my-0 fw-normal"><b>{{ object.name }}</b></h3>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title pricing-card-title">{{ object.cost }} руб.</h2>
-                    <p>
-                        {{ object }}
-                    </p>
-                    {% if object.preview %}
-                        <img class="card-img-top" src="{{ object.preview| my_media }}">
-                    {% endif %}
-                    <span></span>
-                    <a class="btn btn-primary btn-success">Купить</a>
+        {% for blog in object_list %}
+            <div class="col-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal"><b>{{ blog.title }}</b></h4>
+                    </div>
+                    <div class="card-body">
+                        {% if object.preview %}
+                            <img class="img-top form-control" src="{{ object.preview| my_media }}">
+                        {% endif %}
+                        <p>
+                            {{ blog.description }}
+                        </p>
+
+                        <a class="btn form-control btn-primary btn-success" href="{% url 'blog:details' blog.pk %}">Посмотреть</a>
+                        <a class="btn mt-2 form-control btn-primary btn-warning" href="{% url 'blog:update' blog.pk %}">Изменить</a>
+                        <a class="btn mt-2 form-control btn-primary btn-danger" href="{% url 'blog:delete' blog.pk %}">Удалить</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
 
         <div>
             <p class="d-inline-flex gap-1">

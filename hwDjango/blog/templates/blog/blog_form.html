@@ -1,0 +1,67 @@
+{% extends 'catalog/base.html' %}
+{% load to_media %}
+{% block content %}
+<main class="row">
+    <div class="row">
+        <div>
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h2 class="my-0 fw-normal"><b>Создание блога</b></h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn mt-2 btn-success">
+                            {% if object %}
+                                Изменить
+                            {% else %}
+                                Создать
+                            {% endif %}
+                        </button>
+                        <a class="btn btn-primary mt-2 btn-danger" href="{% url 'blog:list' %}">Вернуться к блогам</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p class="d-inline-flex gap-1">
+                <a class="btn btn-info" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                   aria-expanded="false" aria-controls="multiCollapseExample1">Как купить?</a>
+                <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#multiCollapseExample2" aria-expanded="false"
+                        aria-controls="multiCollapseExample2">Как доставить?
+                </button>
+                <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#multiCollapseExample3" aria-expanded="false"
+                        aria-controls="multiCollapseExample3">Какая гарантия?
+                </button>
+            </p>
+            <div class="row">
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                            Нажми на кнопку купить
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body">
+                            Зря ты туда полез
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample3">
+                        <div class="card card-body">
+                            Честное слово все работает
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

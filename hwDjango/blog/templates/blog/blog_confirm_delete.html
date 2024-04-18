@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% load to_media %}
+{% block content %}
+<header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal text-body-emphasis">Удаление блога</h1>
+    </div>
+</header>
+
+<main class="row">
+    <div class="row text-center">
+        <div>
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h2 class="my-0 fw-normal"><b>{{ object.title }}</b></h2>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {{ object.description }}
+                    </p>
+                    {% if object.preview %}
+                        <img class="img-top" width="300" height="300" src="{{ object.preview| my_media }}">
+                    {% endif %}
+                    <br>
+                    <button type="submit" class="btn mt-2 btn-danger">Удалить</button>
+                    <a class="btn btn-primary mt-2 btn-success" href="{% url 'blog:list' %}">Вернуться к блогам</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
