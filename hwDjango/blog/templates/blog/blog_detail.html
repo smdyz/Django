@@ -12,7 +12,7 @@
         <div>
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
-                    <h2 class="my-0 fw-normal"><b>{{ object.title }}</b></h2>
+                    <h2 class="my-0 fw-normal"><b>{{ object.title }} {{ object.slug }}</b></h2>
                 </div>
                 <div class="card-body">
                     <p>
@@ -22,6 +22,7 @@
                         <img class="img-top" width="300" height="300" src="{{ object.preview| my_media }}">
                     {% endif %}
                     <br>
+                    <p class="text-left">Просмотры: {{ object.views }}</p>
                     <a class="btn btn-primary mt-2 btn-danger" href="{% url 'blog:list' %}">Вернуться к блогам</a>
                 </div>
             </div>

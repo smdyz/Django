@@ -10,8 +10,8 @@ class Blog(models.Model):
     preview = models.ImageField(verbose_name='превью', **NULLABLE)
     created_at = models.CharField(max_length=50, verbose_name='дата создания')
 
-    published = models.BooleanField(verbose_name='опубликовано', **NULLABLE)
-    views = models.IntegerField(verbose_name='просмотры', **NULLABLE)
+    published = models.BooleanField(default='True', verbose_name='опубликовано')
+    views = models.IntegerField(default='0', verbose_name='просмотры')
     slug = models.CharField(max_length=100, verbose_name='slug', **NULLABLE)
 
     # **NULLABLE заменяет null=True, blank=True (разрешает оставлять пустые ячейки)

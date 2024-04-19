@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import Product
+
 
 # from django.views.generic.base import TemplateView
 #
@@ -17,6 +18,8 @@ from .models import Product
 
 class ProductListView(ListView):
     model = Product
+
+
 # def index(request):
 #     prod_list = Product.objects.all()
 #     context = {
@@ -27,6 +30,8 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
+
 # def product(request, pk):
 #     context = {
 #         'object': Product.objects.get(pk=pk)
@@ -59,3 +64,12 @@ def admin1(request):
 
 def contact(request):
     return render(request, 'catalog/contact.html')
+
+
+# class ProductPageView(TemplateView):
+#     template_name = "home.html"
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["latest_articles"] = Product.objects.all()[:5]
+#         return context
