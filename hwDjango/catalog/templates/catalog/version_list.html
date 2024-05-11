@@ -1,0 +1,24 @@
+{% extends 'catalog/base.html' %}
+{% load to_media %}
+
+{% block content %}
+    <div class="col-12 text-center">
+        <h1>Версии {{ object_list.version_name }}</h1>
+        <a type="button" class="btn btn-outline-primary mt-3 mb-3" href="{% url 'catalog:create_version' %}">Добавить новую
+            версию</a>
+
+        <div class="row text-center">
+            {% for version in object_list %}
+            <div class="col-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h5 class="my-0 fw-normal"><b>{{ version.version_name }}</b></h5>
+                        <h5 class="my-0 fw-normal"><b>{{ version.version_num }}</b></h5>
+                        <h5 class="my-0 fw-normal"><b>{{ version.sign }}</b></h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

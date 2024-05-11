@@ -1,37 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Site</title>
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-</head>
-<body>
+{% extends 'catalog/base.html' %}
 
-<h1 class="text-center col-4 mx-auto mb-5">
-    Регистрация
-</h1>
-
-<form method="post" class="mx-auto col-4">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input name="name" type="text" class="form-control" id="name">
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input name="email" type="email" class="form-control" id="email">
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input name="password" type="password" class="form-control" id="password">
-    </div>
-    <a class="btn btn-primary" href="{% url 'catalog:store' %}">Отправить</a>
-</form>
-
-</body>
-</html>
+{% block content %}
+    <main class="row">
+        <div class="row">
+            <div>
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h2 class="my-0 fw-normal"><b>Создание продукта</b></h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <!--этот enctype позволяет добавлять изображения в форме, чтобы они потом отображались-->
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn mt-2 btn-success">
+                                {% if object %}
+                                Изменить
+                                {% else %}
+                                Создать
+                                {% endif %}
+                            </button>
+                            <a class="btn btn-primary mt-2" href="{% url 'catalog:product_versions' product.pk %}">Версии</a>
+                            <a class="btn btn-primary mt-2 btn-danger" href="{% url 'catalog:store' %}">Вернуться к
+                                товарам</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

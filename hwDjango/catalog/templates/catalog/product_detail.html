@@ -17,13 +17,14 @@
                 <div class="card-body">
                     <h2 class="card-title pricing-card-title">{{ object.cost }} руб.</h2>
                     <p>
-                        {{ object }}
+                        {{ object.description }}
+                        {{ Version }}   <!--я не понял как выделить только название...-->
                     </p>
                     {% if object.preview %}
                         <img class="img-top" width="300" height="300" src="{{ object.preview| my_media }}">
                     {% endif %}
                     <br>
-                    <a class="btn btn-primary mt-2 btn-success">Купить</a>
+                    <a class="btn btn-primary mt-2 btn-success" href="{% url 'catalog:store' %}">Купить</a>
                 </div>
             </div>
         </div>

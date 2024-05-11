@@ -9,7 +9,7 @@
                     <h2 class="my-0 fw-normal"><b>Создание блога</b></h2>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data" class="form-floating">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn mt-2 btn-success">
