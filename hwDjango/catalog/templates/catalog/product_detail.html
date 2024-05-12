@@ -19,6 +19,7 @@
                     <p>
                         {{ object.description }}
                         {{ Version }}   <!--я не понял как выделить только название...-->
+                        {{ object.author }}
                     </p>
                     {% if object.preview %}
                         <img class="img-top" width="300" height="300" src="{{ object.preview| my_media }}">

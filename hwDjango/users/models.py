@@ -20,7 +20,7 @@ class User(AbstractUser):
     # **NULLABLE заменяет null=True, blank=True (разрешает оставлять пустые ячейки)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.email}'
 
     class Meta:
         verbose_name = 'пользователь'

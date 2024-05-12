@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from django.core.mail import send_mail
@@ -46,6 +46,11 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UserResetPassword:
+    model = User
+
 
 
 

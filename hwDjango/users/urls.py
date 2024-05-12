@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
-from hwDjango.users.apps import UsersConfig
+from users.apps import UsersConfig
 from .views import RegisterView, ProfileView
 
 app_name = UsersConfig.name

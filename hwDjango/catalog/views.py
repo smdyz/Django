@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from .forms import ProductForm, VersionForm
 from .models import Product, Version
 
+
 # from django.views.generic.base import TemplateView
 #
 #
@@ -36,6 +37,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['Version'] = Version.objects.filter(sign=True)
+        #     context.version = Version.objects.get(product=name)
         # print(context)
         return context
 
@@ -52,12 +54,19 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:store')
     login_url = '/users/'
-    redirect_field_name = 'redirect_to'     # зачем?
+    redirect_field_name = 'redirect_to'  # зачем?
 
     # def form_valid(self, form):
-    #     author = self.request.user['email']
-    #     print(author)
-    #     return author
+    #     prod_data = form.save(commit=False)
+    #     print(self.request.user)
+
+    # def save_formset(self, request, form, formset, change):
+    #     instances = formset.save(commit=False)
+    #     for instance in instances:
+    #         if isinstance(instance, Request):
+    #             if not instance.usercreated:
+    #                 instance.usercreated = request.user
+    #             instance.save()
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -98,7 +107,6 @@ def admin1(request):
 
 def contact(request):
     return render(request, 'catalog/contact.html')
-
 
 # class ProductPageView(TemplateView):
 #     template_name = "home.html"
