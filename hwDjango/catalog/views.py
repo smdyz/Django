@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
-from .forms import ProductForm, UserForm, VersionForm
-from .models import Product, Users, Version
+from .forms import ProductForm, VersionForm
+from .models import Product, Version
 
 # from django.views.generic.base import TemplateView
 #
@@ -59,18 +59,6 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:store')
 
 
-class UserCreateView(CreateView):
-    model = Users
-    form_class = UserForm
-    success_url = reverse_lazy('catalog:store')
-
-
-class UserUpdateView(UpdateView):
-    model = Users
-    form_class = UserForm
-    success_url = reverse_lazy('catalog:store')
-
-
 class VersionListView(ListView):
     model = Version
 
@@ -78,7 +66,7 @@ class VersionListView(ListView):
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
-    success_url = reverse_lazy('catalog:product/<int:pk>')
+    success_url = reverse_lazy('catalog:store')
 
 
 class VersionUpdateView(UpdateView):
@@ -89,12 +77,6 @@ class VersionUpdateView(UpdateView):
 
 class VersionDetailView(DetailView):
     model = Version
-
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        for data in context_data:
-            if data['sign'] is True:
-                return context_data
 
 
 class VersionDeleteView(DeleteView):

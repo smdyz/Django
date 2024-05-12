@@ -15,6 +15,7 @@
                         <h5 class="my-0 fw-normal"><b>{{ version.version_name }}</b></h5>
                         <h5 class="my-0 fw-normal"><b>{{ version.version_num }}</b></h5>
                         <h5 class="my-0 fw-normal"><b>{{ version.sign }}</b></h5>
+                        <a type="button" class="btn btn-primary mt-2" href="{% url 'catalog:version_detail' version.pk %}">Посмотреть</a>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,13 @@
                         <!--этот enctype позволяет добавлять изображения в форме, чтобы они потом отображались-->
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="btn mt-2 btn-success">Добавить</button>
+                        <button type="submit" class="btn mt-2 btn-success">
+                            {% if object %}
+                            Изменить
+                            {% else %}
+                            Добавить
+                            {% endif %}
+                        </button>
                         <a class="btn btn-primary mt-2 btn-danger" href="{% url 'catalog:store' %}">Вернуться к
                             товарам</a>
                     </form>

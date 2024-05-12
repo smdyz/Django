@@ -20,7 +20,9 @@
                                 Создать
                                 {% endif %}
                             </button>
-                            <a class="btn btn-primary mt-2" href="{% url 'catalog:product_versions' product.pk %}">Версии</a>
+                            {% if object %}
+                                <a class="btn btn-primary mt-2" href="{% url 'catalog:product_versions' product.pk %}">Версии</a>
+                            {% endif %}
                             <a class="btn btn-primary mt-2 btn-danger" href="{% url 'catalog:store' %}">Вернуться к
                                 товарам</a>
                         </form>
