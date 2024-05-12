@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
@@ -33,7 +34,6 @@ class ProductDetailView(DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
-        # xxx will be available in the template as the related objects
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['Version'] = Version.objects.filter(sign=True)
         # print(context)
@@ -47,16 +47,25 @@ class ProductDetailView(DetailView):
 #     return render(request, 'catalog/blog_form.html', context)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:store')
+    login_url = '/users/'
+    redirect_field_name = 'redirect_to'     # зачем?
+
+    # def form_valid(self, form):
+    #     author = self.request.user['email']
+    #     print(author)
+    #     return author
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:store')
+    login_url = '/users/'
+    redirect_field_name = 'redirect_to'  # зачем?
 
 
 class VersionListView(ListView):
