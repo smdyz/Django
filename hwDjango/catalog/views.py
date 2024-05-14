@@ -1,52 +1,28 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.forms import inlineformset_factory
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import ProductForm, VersionForm
 from .models import Product, Version
 
 
-# from django.views.generic.base import TemplateView
-#
-#
-# class ContactPageView(TemplateView):
-#     template_name = "contact.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["latest_articles"] = Product.objects.all()
-#         return context
-
-
 class ProductListView(ListView):
     model = Product
 
-
-# def index(request):
-#     prod_list = Product.objects.all()
-#     context = {
-#         'object_list': prod_list
-#     }
-#     return render(request, 'catalog/product_list.html', context)
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        active_versions = []
+        for prod in context_data.get('object_list'):
+            print(context_data)
+            active_versions.append(prod.version.filter(sign=True).first())
+        context_data['active_versions'] = active_versions
+        return context_data
 
 
 class ProductDetailView(DetailView):
     model = Product
-
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(**kwargs)
-        context['Version'] = Version.objects.filter(sign=True)
-        #     context.version = Version.objects.get(product=name)
-        # print(context)
-        return context
-
-
-# def product(request, pk):
-#     context = {
-#         'object': Product.objects.get(pk=pk)
-#     }
-#     return render(request, 'catalog/blog_form.html', context)
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -54,19 +30,14 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:store')
     login_url = '/users/'
-    redirect_field_name = 'redirect_to'  # зачем?
+    redirect_field_name = 'redirect_to'
 
-    # def form_valid(self, form):
-    #     prod_data = form.save(commit=False)
-    #     print(self.request.user)
-
-    # def save_formset(self, request, form, formset, change):
-    #     instances = formset.save(commit=False)
-    #     for instance in instances:
-    #         if isinstance(instance, Request):
-    #             if not instance.usercreated:
-    #                 instance.usercreated = request.user
-    #             instance.save()
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.author = self.request.user
+        print(self.object.author)
+        self.object.author.save()
+        return super().form_valid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -74,7 +45,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:store')
     login_url = '/users/'
-    redirect_field_name = 'redirect_to'  # зачем?
+    redirect_field_name = 'redirect_to'
 
 
 class VersionListView(ListView):
@@ -98,7 +69,8 @@ class VersionDetailView(DetailView):
 
 
 class VersionDeleteView(DeleteView):
-    pass
+    model = Version
+    success_url = reverse_lazy('catalog:store')
 
 
 def admin1(request):

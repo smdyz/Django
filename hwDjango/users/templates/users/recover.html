@@ -15,21 +15,17 @@
 <body>
 
 <h1 class="text-center col-4 mx-auto mb-5">
-    Вход
+    Восстановление пароля
 </h1>
 
 <form method="post" class="mx-auto col-4"  enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-success">Отправить
-        <!--{% if object %}
-        Изменить
-        {% else %}
-
-        {% endif %}-->
-    </button>
-    <a type="button" class="btn btn-warning" href="{% url 'users:recovery' %}">Восстановить пароль</a>
-    <a type="button" class="btn btn-danger" href="{% url 'catalog:store' %}">Вернуться к товарам</a>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input name="email" type="email" class="form-control" id="email">
+    </div>
+    <button type="submit" class="btn btn-success">Отправить</button>
+    <a type="button" class="btn btn-danger" href="{% url 'users:login' %}">Вернуться</a>
 </form>
 
 </body>

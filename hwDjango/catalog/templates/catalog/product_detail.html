@@ -8,29 +8,28 @@
 </header>
 
 <main class="row">
-    <div class="row text-center">
+    <div class="row">
         <div>
             <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
+                <div class="card-header py-3 text-center">
                     <h3 class="my-0 fw-normal"><b>{{ object.name }}</b></h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h2 class="card-title pricing-card-title">{{ object.cost }} руб.</h2>
-                    <p>
-                        {{ object.description }}
-                        {{ Version }}   <!--я не понял как выделить только название...-->
-                        {{ object.author }}
-                    </p>
+                    <p>{{ object.description }}</p>
                     {% if object.preview %}
                         <img class="img-top" width="300" height="300" src="{{ object.preview| my_media }}">
                     {% endif %}
                     <br>
                     <a class="btn btn-primary mt-2 btn-success" href="{% url 'catalog:store' %}">Купить</a>
                 </div>
+                <div class="card-footer text-left">
+                    <p>Автор: {{ object.author }}</p>
+                </div>
             </div>
         </div>
 
-        <div>
+        <div class="text-center">
             <p class="d-inline-flex gap-1">
                 <a class="btn btn-info" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
                    aria-expanded="false" aria-controls="multiCollapseExample1">Как купить?</a>

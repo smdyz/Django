@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'null': True, 'blank': True}
 
 
@@ -26,7 +28,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категория', **NULLABLE)
     cost = models.IntegerField(verbose_name='цена')
 
-    author = models.CharField(verbose_name='автор')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='автор', **NULLABLE)
 
     created_at = models.CharField(verbose_name='дата создания')
     updated_at = models.CharField(verbose_name='дата последнего изменения')
@@ -41,7 +43,7 @@ class Product(models.Model):
 
 
 class Version(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
+    product = models.ForeignKey(Product, related_name='version', on_delete=models.CASCADE, verbose_name='продукт')
     version_num = models.CharField(max_length=50, verbose_name='номер_версии', unique=True)
     version_name = models.CharField(max_length=50, verbose_name='имя_версии')
     sign = models.BooleanField(max_length=50, verbose_name='признак_текущей_версии')
