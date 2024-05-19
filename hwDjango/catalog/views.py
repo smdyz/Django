@@ -1,5 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import inlineformset_factory
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+# from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -8,8 +9,9 @@ from .forms import ProductForm, VersionForm
 from .models import Product, Version
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
+    # permission_required = 'catalog.view_product'
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -21,13 +23,14 @@ class ProductListView(ListView):
         return context_data
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:store')
     login_url = '/users/'
     redirect_field_name = 'redirect_to'
@@ -40,43 +43,53 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:store')
     login_url = '/users/'
     redirect_field_name = 'redirect_to'
 
 
-class VersionListView(ListView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Product
+    permission_required = 'catalog.delete_product'
+    success_url = reverse_lazy('catalog:store')
+    login_url = '/users/'
+
+
+class VersionListView(LoginRequiredMixin, ListView):
     model = Version
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:store')
 
 
-class VersionUpdateView(UpdateView):
+class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:store')
 
 
-class VersionDetailView(DetailView):
+class VersionDetailView(LoginRequiredMixin, DetailView):
     model = Version
 
 
-class VersionDeleteView(DeleteView):
+class VersionDeleteView(LoginRequiredMixin, DeleteView):
     model = Version
     success_url = reverse_lazy('catalog:store')
 
 
+@login_required
 def admin1(request):
     return render(request, 'catalog/admin1.html')
 
 
+@login_required
 def contact(request):
     return render(request, 'catalog/contact.html')
 

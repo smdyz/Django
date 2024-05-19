@@ -147,6 +147,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
+LOGIN_URL = 'users/'
+
 # настройка папки, куда будет сохраняться весь контент с сайта (который выложил пользователь и тп)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 
 from .models import User
 
@@ -43,11 +44,11 @@ class UserProfileForm(UserChangeForm):
         self.fields['password'].widget = forms.HiddenInput()
 
 
-class UserRecoverPasswordForm(PasswordChangeForm):
+class UserLoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = 'email'
+        fields = 'Password'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,5 +56,3 @@ class UserRecoverPasswordForm(PasswordChangeForm):
             field.widget.attrs['class'] = 'form-control'
             if field_name == 'createable':
                 field.widget.attrs['class'] = 'form-check-input'  # стиль для булевого поля (checkbox)
-
-        self.fields['password'].widget = forms.HiddenInput()

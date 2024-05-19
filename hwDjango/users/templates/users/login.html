@@ -21,15 +21,17 @@
 <form method="post" class="mx-auto col-4"  enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-success">Отправить
-        <!--{% if object %}
-        Изменить
-        {% else %}
 
-        {% endif %}-->
-    </button>
-    <a type="button" class="btn btn-warning" href="{% url 'users:recovery' %}">Восстановить пароль</a>
-    <a type="button" class="btn btn-danger" href="{% url 'catalog:store' %}">Вернуться к товарам</a>
+    <div class="col-12 d-flex justify-content-between">
+        <button class="btn btn-success">Отправить</button>
+        <a type="button" class="btn btn-warning" href="{% url 'users:recovery' %}">Восстановить пароль</a>
+    </div>
+
+    <div class="col-12 d-flex justify-content-between">
+        <a type="button" class="btn btn-danger mt-2" href="{% url 'catalog:store' %}">Вернуться к товарам</a>
+        <a type="button" class="btn btn-primary mt-2" href="{% url 'users:register' %}">Регистрация</a>
+    </div>
+
 </form>
 
 </body>

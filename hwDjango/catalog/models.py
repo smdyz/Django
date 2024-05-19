@@ -30,6 +30,8 @@ class Product(models.Model):
 
     author = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='автор', **NULLABLE)
 
+    is_published = models.BooleanField(default=False, verbose_name='опубликовано')
+
     created_at = models.CharField(verbose_name='дата создания')
     updated_at = models.CharField(verbose_name='дата последнего изменения')
 
@@ -39,7 +41,10 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
-        # ordering = ('name',)
+        permissions = [
+            ('change_published_status', 'Can change status "is_published"')
+        ]
+        # для применения кастомных permissions необходимо создать миграцию
 
 
 class Version(models.Model):
