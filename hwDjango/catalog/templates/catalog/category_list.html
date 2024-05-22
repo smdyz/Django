@@ -5,8 +5,7 @@
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal text-body-emphasis">Главная</h1>
         <p class="fs-5 text-body-secondary">Вы находитесь на сайте, предназначенном для продажи товаров</p>
-        <a type="button" class="btn btn-outline-primary" href='{% url "catalog:create_product" %}'>Добавить новый
-            продукт</a>
+        <a type="button" class="btn btn-outline-primary" href='{% url "catalog:create_category" %}'>Добавить категори</a>
     </div>
 </header>
 
@@ -18,33 +17,18 @@
                 <h4 class="my-0 fw-normal"><b>{{ product.name }}</b></h4>
             </div>
             <div class="card-body">
-                <h2 class="card-title pricing-card-title text-center">{{ product.cost }} руб.</h2>
                 <p>
                     {{ product.description }}
                 </p>
 
-
-                <a class="btn btn-primary btn-success mb-2" href="{% url 'catalog:product' product.pk %}">Купить</a>
                 {% if perms.catalog.change_product %}
-                    <a class="btn btn-primary btn-warning mb-2" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
+                <a class="btn btn-primary btn-warning mb-2" href="{% url 'catalog:update_category' 2 %}">Изменить</a>
+                <!--почему-то не работает category.pk-->
                 {% endif %}
                 {% if perms.catalog.delete_product %}
-                    <a class="btn btn-primary btn-danger mb-2" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
+                <a class="btn btn-primary btn-danger mb-2" href="{% url 'catalog:delete_category' 3 %}">Удалить</a>
                 {% endif %}
                 <br>
-                <p class="card-text">
-                    {% if product.author %}
-                    Создал: {{ product.author }}
-                    {% endif %}
-                </p>
-                <p class="card-text">
-                    {% for version in active_versions %}
-                    {% if version.product.id == product.id %}
-                    Текущая версия: {{ version.version_name }}
-                    (версия {{ version.version_num }})
-                    {% endif %}
-                    {% endfor %}
-                </p>
             </div>
         </div>
     </div>
@@ -86,34 +70,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Товар</th>
-                <th scope="col">Цена ($/шт)</th>
-                <th scope="col">Количество</th>
-                <th scope="col">Итого</th>
-                <th scope="col">Статус заказа</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for product in object_list %}
-            <tr>
-                <th scope="row">{{ product.pk }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.cost }}</td>
-                <td>1</td>
-                <td>{{ product.cost }}</td>
-                <td class="table-primary">Новый</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
     </div>
 </main>
 {% endblock %}

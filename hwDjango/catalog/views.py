@@ -1,16 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import ProductForm, VersionForm
-from .models import Product, Version
+from .forms import ProductForm, VersionForm, CategoryForm
+from .models import Product, Version, Category
+from .services import get_category_list_from_cache
 
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
+
     # permission_required = 'catalog.view_product'
 
     def get_context_data(self, *args, **kwargs):
@@ -93,10 +94,27 @@ def admin1(request):
 def contact(request):
     return render(request, 'catalog/contact.html')
 
-# class ProductPageView(TemplateView):
-#     template_name = "home.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["latest_articles"] = Product.objects.all()[:5]
-#         return context
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+
+    # вызов функции по вытаскиванию\запихиванию категорий в кэш
+    def get_queryset(self):
+        return get_category_list_from_cache()
+
+
+class CategoryCreateView(LoginRequiredMixin, CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('catalog:categories')
+
+
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('catalog:categories')
+
+
+class CategoryDeleteView (LoginRequiredMixin, DeleteView):
+    model = Category
+    success_url = reverse_lazy('catalog:categories')

@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <main class="row">
+        <div class="row">
+            <div>
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h2 class="my-0 fw-normal"><b>Создание категории</b></h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <!--этот enctype позволяет добавлять изображения в форме, чтобы они потом отображались-->
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn mt-2 btn-success">
+                                {% if object %}
+                                Изменить
+                                {% else %}
+                                Создать
+                                {% endif %}
+                            </button>
+                            <a class="btn btn-primary mt-2 btn-danger" href="{% url 'catalog:store' %}">Вернуться к
+                                версиям</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

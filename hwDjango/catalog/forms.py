@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Version
+from .models import Product, Version, Category
 
 
 class ProductForm(forms.ModelForm):
@@ -46,3 +46,15 @@ class VersionForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             if field_name == 'sign':
                 field.widget.attrs['class'] = 'form-check-input'    # стиль для булевого поля (checkbox)
+
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('name', 'description',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
